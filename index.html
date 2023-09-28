@@ -8,12 +8,12 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     function App() {
-      const [minutes, setMinutes] = React.useState();
+      const [amount, setAmount] = React.useState();
       const [flipped, setFlipped] = React.useState(false);
       const onChange = (event) => {
-        setMinutes(event.target.value);
+        setAmount(event.target.value);
       };
-      const reset = () => setMinutes(0);
+      const reset = () => setAmount(0);
       const onFlip = () => setFlipped((current) => !current);
       return (
         <div>
@@ -21,7 +21,7 @@
           <div>
             <label htmlFor="minutes">Minutes</label>
             <input
-              value={minutes}
+              value={flipped ? amount * 60 : amount}
               id="minutes"
               placeholder="Minutes"
               type="number"
@@ -33,11 +33,12 @@
           <div>
             <label htmlFor="hours">Hours</label>
             <input
-              value={minutes / 60}
+              value={flipped ? amount : Math.round(amount / 60)}
               id="hours"
               placeholder="Hours"
               type="number"
               disabled={!flipped}
+              onChange={onChange}
             />
           </div>
           <button onClick={reset}>Reset</button>
